@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'package:demo_flutter/models/login_response.dart';
 import 'package:flutter/material.dart';
+import 'package:demo_flutter/services/authentication_service.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -23,13 +25,17 @@ class _LoginScreen extends State<LoginScreen> {
     });
   }
 
-  loginClick() {
+  loginClick() async {
     setErrorMessage("");
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      log("Success: $username $password $isChecked");
+      //log("Success: $username $password $isChecked");
+
+      LoginResponse apiResponse =
+          await AuthenticationService.checkLogin(username, password);
+      if (apiResponse.isSuccess) log(apiResponse.user.name);
+      setErrorMessage(apiResponse.message);
     } else {
-      log("fail");
       setErrorMessage("Fill Required information!");
     }
   }

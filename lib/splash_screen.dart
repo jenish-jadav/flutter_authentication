@@ -25,7 +25,9 @@ class _SplashScreen extends State<SplashScreen> {
         context,
         new MaterialPageRoute(
             builder: (BuildContext buildContext) =>
-                pref.getBool("is_login") ? HomeScreen() : LoginScreen()));
+                pref.getBool("is_login") != null && pref.getBool("is_login")
+                    ? HomeScreen()
+                    : LoginScreen()));
   }
 
   @override
