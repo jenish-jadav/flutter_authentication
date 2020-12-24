@@ -2,6 +2,9 @@ import 'dart:developer';
 import 'package:demo_flutter/models/login_response.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_flutter/services/authentication_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -34,10 +37,20 @@ class _LoginScreen extends State<LoginScreen> {
       LoginResponse apiResponse =
           await AuthenticationService.checkLogin(username, password);
       if (apiResponse.isSuccess) log(apiResponse.user.name);
-      setErrorMessage(apiResponse.message);
+      //setErrorMessage(apiResponse.message);
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      await pref.setBool("is_login", true);
+      _goToHomeScreen();
     } else {
       setErrorMessage("Fill Required information!");
     }
+  }
+
+  void _goToHomeScreen() {
+    Navigator.pushReplacement(
+        context,
+        new MaterialPageRoute(
+            builder: (BuildContext buildContext) => HomeScreen()));
   }
 
   setErrorMessage(String msg) {
@@ -49,11 +62,10 @@ class _LoginScreen extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("Login"),
-        elevation: 0.0,
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
@@ -120,9 +132,9 @@ class _LoginScreen extends State<LoginScreen> {
                         minWidth: MediaQuery.of(context).size.width,
                         child: Text(
                           "Login",
-                          style: TextStyle(fontSize: 18.0),
+                          style: TextStyle(fontSize: 21.0),
                         ),
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(12),
                         color: Theme.of(context).primaryColor,
                         textColor: Colors.white,
                         onPressed: () => loginClick(),
