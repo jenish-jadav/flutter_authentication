@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:demo_flutter/models/login_response.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_flutter/services/authentication_service.dart';
@@ -62,95 +63,97 @@ class _LoginScreen extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Login"),
-      ),
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      Image.network("https://picsum.photos/120"),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      TextFormField(
-                        onSaved: (String value) {
-                          username = value;
-                        },
-                        decoration: InputDecoration(
-                            hintText: "Username",
-                            labelText: "Username",
-                            border: OutlineInputBorder()),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Username Required!";
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      TextFormField(
-                        onSaved: (String value) {
-                          password = value;
-                        },
-                        obscureText: true,
-                        decoration: InputDecoration(
-                            hintText: "Password",
-                            labelText: "Password",
-                            border: OutlineInputBorder()),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Password Required!";
-                          }
-                          return null;
-                        },
-                      ),
-                      Row(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Form(
+                      key: _formKey,
+                      child: Column(
                         children: [
-                          Checkbox(
-                            onChanged: (bool value) {
-                              setState(() {
-                                this.isChecked = value;
-                              });
-                            },
-                            value: this.isChecked,
+                          CachedNetworkImage(
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            imageUrl: 'https://picsum.photos/180/',
                           ),
-                          Text("I accept the terms and conditions")
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormField(
+                            onSaved: (String value) {
+                              username = value;
+                            },
+                            decoration: InputDecoration(
+                                hintText: "Username",
+                                labelText: "Username",
+                                border: OutlineInputBorder()),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Username Required!";
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          TextFormField(
+                            onSaved: (String value) {
+                              password = value;
+                            },
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                hintText: "Password",
+                                labelText: "Password",
+                                border: OutlineInputBorder()),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Password Required!";
+                              }
+                              return null;
+                            },
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    this.isChecked = value;
+                                  });
+                                },
+                                value: this.isChecked,
+                              ),
+                              Text("I accept the terms and conditions")
+                            ],
+                          ),
+                          MaterialButton(
+                            minWidth: MediaQuery.of(context).size.width,
+                            child: Text(
+                              "Login",
+                              style: TextStyle(fontSize: 21.0),
+                            ),
+                            padding: EdgeInsets.all(12),
+                            color: Theme.of(context).primaryColor,
+                            textColor: Colors.white,
+                            onPressed: () => loginClick(),
+                          ),
+                          Text(errorMsg,
+                              style: TextStyle(
+                                color: Theme.of(context).errorColor,
+                              )),
                         ],
                       ),
-                      MaterialButton(
-                        minWidth: MediaQuery.of(context).size.width,
-                        child: Text(
-                          "Login",
-                          style: TextStyle(fontSize: 21.0),
-                        ),
-                        padding: EdgeInsets.all(12),
-                        color: Theme.of(context).primaryColor,
-                        textColor: Colors.white,
-                        onPressed: () => loginClick(),
-                      ),
-                      Text(errorMsg,
-                          style: TextStyle(
-                            color: Theme.of(context).errorColor,
-                          )),
-                    ],
-                  ),
-                )
-              ],
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

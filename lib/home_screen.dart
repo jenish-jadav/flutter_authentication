@@ -79,15 +79,23 @@ class HomeScreen extends StatelessWidget {
             title: Text('User List'),
             onTap: () {
               redirectToScreen(context, UserList());
-              Navigator.pop(context);
             },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text('About App'),
+            onTap: () {},
           ),
           ListTile(
             leading: Icon(Icons.power_settings_new),
             title: Text('Logout'),
             onTap: () {
               _showLogoutConfirmationDialog(context);
-              //Navigator.of(context).pop();
             },
           ),
         ],
@@ -97,14 +105,22 @@ class HomeScreen extends StatelessWidget {
 
   Widget getDrawerHeader() {
     return DrawerHeader(
-      child: Text(
-        'Jenish',
-        style: TextStyle(color: Colors.white),
-      ),
-      decoration: BoxDecoration(
-        color: Colors.blueAccent,
-      ),
-    );
+        margin: EdgeInsets.zero,
+        padding: EdgeInsets.zero,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage('assets/images/furniture.jpg'))),
+        child: Stack(children: <Widget>[
+          Positioned(
+              bottom: 12.0,
+              left: 16.0,
+              child: Text("Jenish Jadav",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w500))),
+        ]));
   }
 
   Future<void> _showLogoutConfirmationDialog(BuildContext context) async {

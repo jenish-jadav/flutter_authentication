@@ -4,6 +4,7 @@ import 'package:demo_flutter/models/user_list_response.dart';
 import 'package:demo_flutter/services/user_service.dart';
 import 'package:demo_flutter/utils/error_handaling.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class UserList extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("List")),
+      appBar: AppBar(title: Text("User List")),
       body: Center(
         child: FutureBuilder<UserListResponse>(
           future: futureUsers,
@@ -48,11 +49,18 @@ class _UserListState extends State<UserList> {
       itemCount: userList.length,
       separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (BuildContext context, int index) {
+        User user = userList[index];
         return ListTile(
-          key: Key(userList[index].id.toString()),
-          title: Text(userList[index].name),
+          key: Key(user.id.toString()),
+          title: Text(user.name),
+          subtitle: Text("Description comes here..."),
           trailing: Icon(Icons.arrow_forward_ios),
-          leading: Icon(Icons.message),
+          leading: CachedNetworkImage(
+            placeholder: (context, url) => CircularProgressIndicator(),
+            imageUrl:
+                'https://picsum.photos/250?image=' + (index + 170).toString(),
+          ),
+          onTap: () => {log(user.name + " clicked")},
         );
       },
     );
