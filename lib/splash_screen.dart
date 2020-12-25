@@ -16,7 +16,7 @@ class _SplashScreen extends State<SplashScreen> {
   initState() {
     super.initState();
 
-    Future.delayed(Duration(seconds: 10));
+    Future.delayed(Duration(seconds: 5));
     checkAuthentication();
   }
 
