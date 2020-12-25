@@ -1,16 +1,23 @@
-# demo_flutter
-
-A new Flutter project.
+# Flutter Demo
+A collection of basic app requirement like Splash, Login, Drawer Navigation, List, and API integration.
 
 ## Getting Started
+To build and run this project:
 
-This project is a starting point for a Flutter application.
+1. Get Flutter [here](https://flutter.dev) if you don't already have it
+2. Clone this repository.
+3. `cd` into the repo folder.
+4. run `flutter run-android` or `flutter run-ios` to build the app.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Features
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Splash Screen ](/lib/splash_screen.dart) with 5 seconds delay
+- [Login Screen ](/lib/login_screen.dart) using REST API
+- [Dashboard Screen](/lib/home_screen.dart) with Drawer Navigation
+- [User List](/lib/user_list.dart) with REST API and ListView Widget
+ 
+
+### Screenshots
+
+<img src="screenshots/Screen-1.png" height="300em" /> <img src="screenshots/Screen-2.png" height="300em" /> <img src="screenshots/Screen-3.png" height="300em" /> <img src="screenshots/Screen-4.png" height="300em" /> 
